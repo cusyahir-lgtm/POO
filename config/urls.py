@@ -1,15 +1,17 @@
-from django.contrib import admin
-from django.urls import include, path
+from django.urls import path,include
 from rest_framework import routers
 
-from quickstart import views
+from quickstart.views import (
+    get_user,
+    create_user,
+    get_users
+)
 
 router = routers.DefaultRouter()
-router.register(r'users', views.UserViewSet)
-router.register(r'groups', views.GroupViewSet)
 
 urlpatterns = [
-    path('', include(router.urls)),
-    path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    path('admin/', admin.site.urls),
+   path("", include(router.urls)),
+   path("users/example/", get_user, name="get_user_example"),
+   path("create_users/", create_user,name="create_user"),
+   path("users/", get_users, name="get_users")
 ]
